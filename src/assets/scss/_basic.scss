@@ -1,0 +1,178 @@
+/* basic setting */
+$white: #FFFFFF;
+$black: #000000;
+$dark-gray: #2A2A2A;
+$main-grey: #4A4A4A;
+$pale-grey: #F0F0F5;
+$form-label: #808080;
+$sizes: (
+  25: 25%,
+  50: 50%,
+  75: 75%,
+  100: 100%
+);
+
+/* 使用@each 產出css size設定 */
+@each $prop, $abbrev in (width: w, height: h) {
+  @each $num, $val in $sizes {
+    .#{$abbrev}-#{$num} {
+      #{$prop}: $val;
+    }
+  }
+}
+
+$spacer: 1rem;
+$spacers: (
+  0: 0,
+  1: (
+    $spacer * 0.25
+  ),
+  2: (
+    $spacer * 0.5
+  ),
+  3: (
+    $spacer * 0.75
+  ),
+  4: $spacer,
+  5: (
+    $spacer * 1.25
+  ),
+  6: (
+    $spacer * 1.5
+  ),
+  7: (
+    $spacer * 1.75
+  ),
+  8: (
+    $spacer * 2
+  ),
+);
+
+/* 使用@each 產出css spacer設定 */
+@each $prop, $abbrev in (margin: m, padding: p) {
+  @each $num, $val in $spacers {
+    .#{$abbrev}-#{$num} {
+      #{$prop}: $val;
+    }
+    .#{$abbrev}t-#{$num} {
+      #{$prop}-top: $val;
+    }
+    .#{$abbrev}r-#{$num} {
+      #{$prop}-right: $val;
+    }
+    .#{$abbrev}b-#{$num} {
+      #{$prop}-bottom: $val;
+    }
+    .#{$abbrev}l-#{$num} {
+      #{$prop}-left: $val;
+    }
+    .#{$abbrev}x-#{$num} {
+      #{$prop}-right: $val;
+      #{$prop}-left: $val;
+    }
+    .#{$abbrev}y-#{$num} {
+      #{$prop}-top: $val;
+      #{$prop}-bottom: $val;
+    }
+  }
+}
+
+/* 使用@mixin 產出stepper步驟數 */
+@mixin getStepNums($num) {
+  @for $i from 1 through $num {
+    &:nth-child(#{$i}) .circle-container::after {
+      content: "#{$i}";
+    }
+  }
+}
+
+%input-style {
+  height: 40px;
+  width: 100%;
+  border: 1px solid $main-grey;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 12px;
+  line-height: 12px;
+  padding-left: 16px;
+  &:hover,
+  &:focus {
+    border-color: $dark-gray;
+  }
+}
+
+/* html、body、display 設定 */
+html {
+  font-size: 16px;
+  height: 100%;
+}
+body {
+  height: 100%;
+  background: $white;
+  color: $dark-gray;
+}
+.d-none {
+  display: none;
+}
+.d-inline {
+  display: inline;
+}
+.d-inline-block {
+  display: inline-block;
+}
+.d-block {
+  display: block;
+}
+.d-flex {
+  display: flex;
+}
+
+/* flex、alignment、cursor 設定 */
+.flex-column {
+  flex-direction: column;
+}
+.justify-content-start {
+  justify-content: flex-start;
+}
+.justify-content-end {
+  justify-content: flex-end;
+}
+.justify-content-center {
+  justify-content: center;
+}
+.justify-content-between {
+  justify-content: space-between;
+}
+.justify-content-around {
+  justify-content: space-around;
+}
+.align-content-start {
+  align-content: flex-start;
+}
+.align-content-end {
+  align-content: flex-end;
+}
+.align-content-center {
+  align-content: center;
+}
+.align-items-start {
+  align-items: flex-start;
+}
+.align-items-end {
+  align-items: flex-end;
+}
+.align-items-center {
+  align-items: center;
+}
+.text-center {
+  text-align: center;
+}
+.text-right {
+  text-align: right;
+}
+.text-left {
+  text-align: left;
+}
+.cursor-pointer {
+  cursor: pointer;
+}
