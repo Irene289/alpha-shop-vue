@@ -42,7 +42,7 @@
         </div>
         <div class="cart-total">
           <span class="cart-total-title">小計</span>
-          <span class="cart-total-price">${{calculateTotal}}</span>
+          <span class="cart-total-price">${{calculateTotal()}}</span>
         </div>
       </div>
     </div>
@@ -77,6 +77,23 @@ export default {
     shippingFee: {
       type: Number,
       required: true
+    },
+    orderData: {
+      type: Object,
+      default: () => ({
+        gender: "先生",
+        name: "",
+        tel: "",
+        email: "",
+        city: "",
+        address: "",
+        cardName: "",
+        cardNumber: "",
+        cardValidDate: "",
+        cardCVC: "",
+        shipmentType: "標準運送",
+        total: ""
+      })
     }
   },
   data() {
@@ -87,7 +104,7 @@ export default {
         subTotal: 0
       },
       shipping: 0,
-      total: 0
+      totalPay: 0
     }
   },
   created() {
@@ -114,18 +131,30 @@ export default {
       } else {
         return this.shipping = '$' + this.shippingFee.toLocaleString('en-US')
       }
-    }
-  },
-  computed: {
+    },
+
+    // 以下同樣的寫法在 Computed 中產生 side-effect
     calculateTotal() {
       let arr = [this.shippingFee]
       for (let item of this.items) {
         arr.push(item.subTotal)
       }
       
-      const total = arr.reduce((prevVal,currentVal) => prevVal + currentVal, 0)
-      return total.toLocaleString('en-US')
+      this.totalPay = arr.reduce((prevVal,currentVal) => prevVal + currentVal, 0)
+      this.orderData.total = '$' + this.totalPay.toLocaleString('en-US')
+      return this.totalPay.toLocaleString('en-US')
     }
-  }
+  },
+  // computed: {
+  //   calculateTotal() {
+  //     let arr = [this.shippingFee]
+  //     for (let item of this.items) {
+  //       arr.push(item.subTotal)
+  //     }
+      
+  //     const total = arr.reduce((prevVal,currentVal) => prevVal + currentVal, 0)
+  //     return total.toLocaleString('en-US')
+  //   }
+  // }
 }
 </script>

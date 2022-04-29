@@ -10,7 +10,7 @@
     </button>
     <button 
       class="btn btn-primary" 
-      :class="{'btn-primary-only': step === 2}"
+      :class="{'btn-primary-only': step === 1}"
       @click.stop.prevent="onBtnClicked($event)"
       v-show="step !== 3"
     >
@@ -19,7 +19,7 @@
     </button>
     <button 
       class="btn btn-primary" 
-      @click.stop.prevent="onBtnClicked"
+      @click.stop.prevent="handleSubmit"
       v-show="step === 3"
     >
       <span class="btn-left">確認下單</span
@@ -39,11 +39,31 @@ export default {
     router: {
       type: Array,
       required: true
+    },
+    orderData: {
+      type: Object,
+      default: () => ({
+        gender: "先生",
+        name: "",
+        tel: "",
+        email: "",
+        city: "",
+        address: "",
+        cardName: "",
+        cardNumber: "",
+        cardValidDate: "",
+        cardCVC: "",
+        shipmentType: "標準運送",
+        total: ""
+      })
     }
   },
   methods: {
     onBtnClicked(e) {
       this.$emit('after-btn-clicked', e)
+    },
+    handleSubmit() {
+      this.$emit('toggle-modal')
     }
   },
 }

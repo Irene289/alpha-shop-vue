@@ -1,6 +1,6 @@
 @import 'basic';
 
-/* header 未完成*/ 
+/* header 未完成 */ 
 header {
   height: 56px;
   position: relative;
@@ -380,14 +380,49 @@ header {
   }
 }
 
-/* footer */ 
+/* OrderModal */
+.modal {
+  width: 100vw;
+  background-color: rgba($black, .5); 
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.modal-content {
+  width: 100vw;
+  height: 60vh;
+  background-color: $white;
+  border-radius: 10px;
+  color: navy;
+  font-weight: 700;
+  position: absolute;
+  top: 25%;
+  right: 0;
+  bottom: 25%;
+  left: 0;
+  padding: 10px 10px;
+}
+.modal-footer {
+  position: absolute;
+  top: 90%;
+  right: 10%;
+  .btn {
+    color: $dark-gray;
+    font-size: 14px;
+    border: 1px solid #000;
+    border-radius: 5px;
+  }
+}
+/* footer 未完成 */ 
 .footer {
   display: none;
 }
 
 /* RWD */
 @media screen and (min-width: 376px) { 
-  /* header */   
+  /* header 未完成 */   
   header {
     height: 60px;
     .navbar-toggle-label {
@@ -526,8 +561,17 @@ header {
       margin-left: auto;
     }
   }
-  
-  /* footer */ 
+
+  /* OrderModal */
+  .modal-content {
+    width: 50vw;
+    font-weight: 900;
+    right: 25%;
+    left: 25%;
+    padding: 30px 100px;
+  }
+
+  /* footer 未完成 */ 
   .footer {
     display: block;
     // height: 100%;
