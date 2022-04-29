@@ -12,7 +12,7 @@
       <div class="container form-container">
         <form id="a-form">
           <div class="form-content">
-            <!-- Step 1 寄送地址 -->
+            
             <div class="part" v-show="step === 1">
               <div class="section-title">
                 <label for="">寄送地址</label>
@@ -60,7 +60,7 @@
               </div>
               </div>
             </div>
-            <!-- Step 2 運送方式 -->
+            
             <div class="part part-shipping" v-show="step === 2">
               <div class="section-title">
                 <label for="">運送方式</label>
@@ -89,7 +89,7 @@
                 </div>
               </div>
             </div>
-            <!-- Step 3 付款資訊 -->
+            
             <div class="part" v-show="step === 3">
               <div class="section-title">
                 <label for="">付款資訊</label>
@@ -115,10 +115,10 @@
     <!-- btn -->
     <BtnControl 
       :step="step"
-      :current-router="currentRouter"
+      :router="router"
       @after-btn-clicked="afterBtnClicked"
     />
-    <!-- stepName: {{$route.params.stepName}} -->
+    <router-view/>
 
   </main>
 </template>
@@ -162,7 +162,6 @@ export default {
     Cart,
     BtnControl,
   },
-  props: ['stepName'],
   data() {
     return {
       step: 1,
@@ -274,7 +273,7 @@ export default {
           title: 'payment'
         },
       ],
-      currentRouter: 'address',
+      currentRouter: 'address'
     }
   },
   created() {
@@ -285,9 +284,18 @@ export default {
       this.shipments = dummyData.shipments
     },
     afterBtnClicked(e) {
-      const btnClicked = e.target.classList
+      this.stepChange(e)
+      this.routerPush()
+    },
+    selectedShipment(shipId) {
+      let selected = this.shipments.filter(shipment => shipment.id === shipId)
+      this.shippingFee = selected[0].price
+    },
+    stepChange(step) {
+      const btnClicked = step.target.classList
       if (btnClicked.contains('btn-primary')) {
         if (this.step >= 3) return
+
         this.step++
         this.currentStep = this.step
         this.prevStep = this.step - 1
@@ -296,11 +304,19 @@ export default {
         this.currentStep = this.step
         this.prevStep = this.step - 1
       }
-      this.currentRouter = this.router[this.step - 1].title
     },
-    selectedShipment(shipId) {
-      let selected = this.shipments.filter(shipment => shipment.id === shipId)
-      this.shippingFee = selected[0].price
+    routerPush() {
+      let title = this.router[this.currentStep - 1].title
+      this.currentRouter = title
+      // this.$router.push('/alphashop/' + this.currentRouter) 
+
+      if (this.currentStep === 2) {
+        this.$router.push('/alphashop/' + title) 
+      } else if (this.currentStep === 3) {
+        this.$router.push('/alphashop/' + title)
+      } else {
+        this.$router.push('/alphashop/' + title)
+      }
     }
   },
 }

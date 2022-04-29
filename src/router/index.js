@@ -9,18 +9,17 @@ const routes = [
   {
     path: '/',
     name: 'root',
-    redirect: '/alphashop'
+    redirect: '/alphashop/address'
   },
   {
-    path: '/alphashop',
-    name: 'alpha-shop',
-    component: Alphashop
+    path: '/alphashop/address',
+    name: 'alpha-shop-checkout',
+    component: Alphashop,
   },
   {
     path: '/alphashop/:stepName',
     name: 'alpha-shop-checkout',
     component: Alphashop,
-    // props: true
   },
   {
     path: '*',

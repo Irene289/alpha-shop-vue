@@ -107,7 +107,6 @@ export default {
         itemId.count--
       } 
       itemId.subTotal = itemId.count * itemId.price
-      
     },
     addShipping() {
       if (this.shippingFee === 0) {
